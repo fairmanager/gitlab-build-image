@@ -28,9 +28,6 @@ RUN apt-get install --yes supervisor && \
   mkdir --parents /var/log/supervisor && \
   mkdir --parents /etc/supervisor/conf.d
 
-# Drop our default .npmrc, which allows us to set a private npm token
-# through the environment plugin, using the NPM_TOKEN variable.
-ADD npmrc /root/.npmrc
 # write-to-file is expected to exist by strider-docker-gitane-camo
 # which will use the command to drop an SSH key into the container
 ADD write-to-file /usr/local/bin/
@@ -42,6 +39,12 @@ ENV GIT_SSH /home/strider/ssh.sh
 ADD slave/* /home/strider/slave/
 WORKDIR /home/strider/slave
 RUN npm install --global
+
+# Drop our default .npmrc, which allows us to set a private npm token
+# through the environment plugin, using the NPM_TOKEN variable.
+# Do this *after* any npm commands, because without the NPM_TOKEN set
+# all npm interaction will likely fail!
+ADD npmrc /root/.npmrc
 
 # Run the slave
 # Additional background services can be configured by adding
