@@ -44,7 +44,7 @@ RUN npm install --global
 # through the environment plugin, using the NPM_TOKEN variable.
 # Do this *after* any npm commands, because without the NPM_TOKEN set
 # all npm interaction will likely fail!
-ADD npmrc /root/.npmrc
+ADD npmrc /home/strider/.npmrc
 
 # Run the slave
 # Additional background services can be configured by adding
