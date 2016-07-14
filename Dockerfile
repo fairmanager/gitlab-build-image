@@ -23,22 +23,22 @@ RUN adduser --home /home/strider --disabled-password --gecos "" strider
 RUN mkdir --parents /home/strider/workspace
 RUN chown --recursive strider /home/strider
 
-# Get the slave
-#RUN npm install --global strider-docker-slave@1.*.*
-
 # Install supervisord
 RUN apt-get install --yes supervisor && \
   mkdir --parents /var/log/supervisor && \
   mkdir --parents /etc/supervisor/conf.d
 
-ADD ssh.sh /home/strider/
+# Drop our default .npmrc, which allows us to set a private npm token
+# through the environment plugin, using the NPM_TOKEN variable.
+ADD npmrc /root/.npmrc
 # write-to-file is expected to exist by strider-docker-gitane-camo
 # which will use the command to drop an SSH key into the container
 ADD write-to-file /usr/local/bin/
 # Make sure SSH uses the dropped keyfile.
+ADD ssh.sh /home/strider/
 ENV GIT_SSH /home/strider/ssh.sh
 
-# Install the slave
+# Install the daemon that accepts the Strider inputs
 ADD slave/* /home/strider/slave/
 WORKDIR /home/strider/slave
 RUN npm install --global
