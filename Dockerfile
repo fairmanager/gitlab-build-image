@@ -30,7 +30,7 @@ RUN apt-get install --yes supervisor && \
 
 # Drop our default .npmrc, which allows us to set a private npm token
 # through the environment plugin, using the NPM_TOKEN variable.
-ADD .npmrc /root/.npmrc
+ADD npmrc /root/.npmrc
 # write-to-file is expected to exist by strider-docker-gitane-camo
 # which will use the command to drop an SSH key into the container
 ADD write-to-file /usr/local/bin/
