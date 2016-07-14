@@ -1,48 +1,53 @@
-# DOCKER-VERSION 1.0.0
+FROM debian:stable
 
-FROM ubuntu:14.04
+MAINTAINER Oliver Salzburg <oliver.salzburg@gmail.com>
 
-MAINTAINER Keyvan Fatehi <keyvanfatehi@gmail.com>
+# First things first...
+RUN apt-get --yes update
 
-RUN apt-get -y update
+# Install curl
+RUN apt-get install --yes curl
 
-# Node.js and Git are required
-RUN apt-get -y install nodejs npm git
-RUN update-alternatives --install /usr/bin/node node /usr/bin/nodejs 10
+# Install NodeJS
+RUN curl --silent --location https://deb.nodesource.com/setup_4.x | bash -
+RUN apt-get install --yes nodejs
 
-# git wants this
-RUN locale-gen en_US.UTF-8
+# Update npm
+RUN npm install --global npm
 
-# Setup workspace and user
-RUN adduser --home /home/strider --gecos "" strider
-RUN mkdir -p /home/strider/workspace
-RUN chown -R strider /home/strider
+# Install more stuff we generally need
+RUN apt-get install --yes build-essential git
+
+# Setup workspace and user. This is expected by Strider
+RUN adduser --home /home/strider --disabled-password --gecos "" strider
+RUN mkdir --parents /home/strider/workspace
+RUN chown --recursive strider /home/strider
 
 # Get the slave
-RUN npm install -g strider-docker-slave@1.*.*
+#RUN npm install --global strider-docker-slave@1.*.*
 
 # Install supervisord
-RUN apt-get -y install supervisor && \
-  mkdir -p /var/log/supervisor && \
-  mkdir -p /etc/supervisor/conf.d
+RUN apt-get install --yes supervisor && \
+  mkdir --parents /var/log/supervisor && \
+  mkdir --parents /etc/supervisor/conf.d
 
-ADD write-to-file /usr/local/bin/
 ADD ssh.sh /home/strider/
+# write-to-file is expected to exist by strider-docker-gitane-camo
+# which will use the command to drop an SSH key into the container
+ADD write-to-file /usr/local/bin/
+# Make sure SSH uses the dropped keyfile.
 ENV GIT_SSH /home/strider/ssh.sh
+
+# Install the slave
+ADD slave/* /home/strider/slave/
+WORKDIR /home/strider/slave
+RUN npm install --global
 
 # Run the slave
 # Additional background services can be configured by adding
-# a supervisor config file to the config directory 
+# a supervisor config file to the config directory
 # (/etc/supervisor/conf.d/)
-CMD supervisord -c /etc/supervisor/supervisord.conf && su strider -c 'strider-docker-slave'
+CMD supervisord --configuration /etc/supervisor/supervisord.conf && su strider --command "strider-docker-slave"
 
 WORKDIR /home/strider/workspace
 ENV HOME /home/strider
-
-# Other packages that people might want:
-# - make
-# - build-essential
-# - python-dev
-# - default-jre-headless
-# - ruby
-

@@ -1,23 +1,26 @@
 {
-  "name": "strider-docker-slave",
-  "version": "1.0.2",
+  "name": "@fairmanager/strider-docker-slave",
+  "private": true,
+  "version": "1.0.0",
   "description": "Runs inside of a docker container, running commands, communicating via JSON",
-  "main": "slave.js",
-  "bin": "slave.js",
+  "main": "Dockerfile",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "docker build --tag fairmanager/strider-docker-slave:latest .",
+    "clean": "docker rmi --force fairmanager/strider-docker-slave || true",
+    "publish": "docker push fairmanager/strider-docker-slave:latest",
+    "test": "sh test/test.sh"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Strider-CD/strider-docker-slave.git"
+    "url": "https://github.com/fairmanager/strider-docker-slave.git"
   },
-  "author": "Jared Forsyth",
-  "license": "ISC",
+  "author": "Oliver Salzburg <oliver.salzburg@gmail.com>",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Strider-CD/strider-docker-slave/issues"
+    "url": "https://github.com/fairmanager/strider-docker-slave/issues"
   },
-  "homepage": "https://github.com/Strider-CD/strider-docker-slave",
-  "dependencies": {
-    "event-stream": "^3.1.7"
+  "homepage": "https://github.com/fairmanager/strider-docker-slave",
+  "devDependencies": {
+    "jscs": "^3.0.7"
   }
 }
