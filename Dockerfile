@@ -2,10 +2,8 @@ FROM debian:stable
 
 MAINTAINER Oliver Salzburg <oliver.salzburg@gmail.com>
 
-# First things first...
-RUN apt-get --yes update
-
 # Install curl
+RUN apt-get --yes update
 RUN apt-get install --yes curl
 
 # Install NodeJS
