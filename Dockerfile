@@ -13,8 +13,12 @@ RUN apt-get install --yes nodejs
 # Update npm
 RUN npm install --global npm
 
-# Install more stuff we generally need
-RUN apt-get install --yes build-essential git
+# Install more stuff we generally need.
+# build-essentials are required to build some npm modules, so is git.
+# Git is required anyway, because, well, we're going to pull our source code from VCS.
+# libfontconfig is required for PhantomJS. Not everyone might need this, but we might as well prepare for
+# it, to speed up builds that use it.
+RUN apt-get install --yes build-essential git libfontconfig
 
 # Setup workspace and user. This is expected by Strider
 RUN adduser --home /home/strider --disabled-password --gecos "" strider
