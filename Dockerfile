@@ -35,7 +35,6 @@ RUN apt-get install --yes supervisor && \
 ADD write-to-file /usr/local/bin/
 # Make sure SSH uses the dropped keyfile.
 ADD ssh.sh /home/strider/
-ENV GIT_SSH /home/strider/ssh.sh
 
 # Install the daemon that accepts the Strider inputs
 ADD slave/* /home/strider/slave/
@@ -48,14 +47,12 @@ RUN npm install --global
 # all npm interaction will likely fail!
 ADD npmrc /home/strider/.npmrc
 
-# Drop our .bashrc
-ADD bashrc /home/strider/.bashrc
+# Drop our .profile
+ADD profile /home/strider/.profile
 
 # Run the slave
 # Additional background services can be configured by adding
 # a supervisor config file to the config directory
 # (/etc/supervisor/conf.d/)
-CMD supervisord --configuration /etc/supervisor/supervisord.conf && su strider --command "strider-docker-slave"
-
 WORKDIR /home/strider/workspace
-ENV HOME /home/strider
+CMD supervisord --configuration /etc/supervisor/supervisord.conf && su strider --command ". ~/.profile && strider-docker-slave"
