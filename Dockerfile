@@ -48,6 +48,9 @@ RUN npm install --global
 # all npm interaction will likely fail!
 ADD npmrc /home/strider/.npmrc
 
+# Drop our .bashrc
+ADD bashrc /home/strider/.bashrc
+
 # Run the slave
 # Additional background services can be configured by adding
 # a supervisor config file to the config directory
