@@ -50,6 +50,10 @@ ADD npmrc /home/strider/.npmrc
 # Drop our .profile
 ADD profile /home/strider/.profile
 
+# Optional! Install tons of other stuff, that might be useful to others using the same image
+RUN apt-get install --yes ant elasticsearch golang-go mongodb postgresql python ruby
+RUN npm install --global bower eslint grunt-cli gulp-cli n
+
 # Run the slave
 # Additional background services can be configured by adding
 # a supervisor config file to the config directory
