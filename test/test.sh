@@ -1,9 +1,5 @@
 #!/bin/sh
 
-echo "Building image..."
-docker build \
-	--tag strider-docker-slave:test .
-
 echo ""
 echo "Running tests..."
 echo "Expected output:"

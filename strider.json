@@ -10,9 +10,13 @@
 			"enabled": true,
 			"config": {
 				"shell": "bash",
-				"prepare": {
+				"environment": {
 					"screen": "Logging into Docker Hub...",
 					"command": "docker login --username $DOCKER_USERNAME --password $DOCKER_PASSWORD"
+				},
+				"prepare": {
+					"screen": "Building image...",
+					"command": "npm run docker:build"
 				},
 				"deploy": {
 					"screen": "Publishing Docker image...",
