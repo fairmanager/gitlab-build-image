@@ -28,7 +28,12 @@ RUN apt-get update --yes && apt-get install --yes \
 	build-essential \
 	docker.io \
 	git \
-	libfontconfig
+	libfontconfig \
+	python \
+	python-pip
+
+# Install AWS CLI
+RUN pip install awscli
 
 # Setup workspace and user. This is expected by Strider
 RUN adduser --home /home/strider --disabled-password --gecos "" strider
