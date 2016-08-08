@@ -13,6 +13,10 @@
 				"prepare": {
 					"screen": "Logging into Docker Hub...",
 					"command": "docker login --username $DOCKER_USERNAME --password $DOCKER_PASSWORD"
+				},
+				"deploy": {
+					"screen": "Publishing Docker image...",
+					"command": "npm run docker:tag && npm run docker:push"
 				}
 			}
 		}
