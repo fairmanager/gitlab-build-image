@@ -1,24 +1,4 @@
 {
-	"after": {
-		"tasks": [
-			{
-				"name": "Build Docker image",
-				"command": "npm",
-				"args": [
-					"run",
-					"build"
-				]
-			},
-			{
-				"name": "Publish Docker image",
-				"command": "npm",
-				"args": [
-					"run",
-					"publish"
-				]
-			}
-		]
-	},
 	"patch": {
 		"tasks": [
 			{
