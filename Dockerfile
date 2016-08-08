@@ -15,6 +15,10 @@ RUN apt-get update --yes && apt-get install --yes nodejs
 # Update npm
 RUN npm install --global npm
 
+# Make sure the docker group exists prior to installing Docker.
+# This makes sure we get a fixed GID.
+RUN groupadd --gid 999 docker
+
 # Install more stuff we generally need.
 # build-essentials are required to build some npm modules, so is git.
 # Git is required anyway, because, well, we're going to pull our source code from VCS.
