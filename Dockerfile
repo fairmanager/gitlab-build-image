@@ -3,12 +3,11 @@ FROM debian:stable
 MAINTAINER Oliver Salzburg <oliver.salzburg@gmail.com>
 
 # Install curl
-RUN apt-get --yes update
-RUN apt-get install --yes curl
+RUN apt-get update --yes && apt-get install --yes curl
 
 # Install NodeJS
 RUN curl --silent --location https://deb.nodesource.com/setup_4.x | bash -
-RUN apt-get install --yes nodejs
+RUN apt-get update --yes && apt-get install --yes nodejs
 
 # Update npm
 RUN npm install --global npm
@@ -18,7 +17,10 @@ RUN npm install --global npm
 # Git is required anyway, because, well, we're going to pull our source code from VCS.
 # libfontconfig is required for PhantomJS. Not everyone might need this, but we might as well prepare for
 # it, to speed up builds that use it.
-RUN apt-get install --yes build-essential git libfontconfig
+RUN apt-get update --yes && apt-get install --yes \
+	build-essential \
+	git \
+	libfontconfig
 
 # Setup workspace and user. This is expected by Strider
 RUN adduser --home /home/strider --disabled-password --gecos "" strider
@@ -26,7 +28,7 @@ RUN mkdir --parents /home/strider/workspace
 RUN chown --recursive strider /home/strider
 
 # Install supervisord
-RUN apt-get install --yes supervisor && \
+RUN apt-get update --yes && apt-get install --yes supervisor && \
   mkdir --parents /var/log/supervisor && \
   mkdir --parents /etc/supervisor/conf.d
 
@@ -50,9 +52,14 @@ ADD npmrc /home/strider/.npmrc
 # Drop our .profile
 ADD profile /home/strider/.profile
 
-# Optional! Install tons of other stuff, that might be useful to others using the same image
-RUN apt-get install --yes ant elasticsearch golang-go mongodb postgresql python ruby
-RUN npm install --global bower eslint grunt-cli gulp-cli n
+# Install other npm modules we usually need globally.
+RUN npm install --global \
+	bower \
+	eslint \
+	grunt-cli \
+	gulp-cli \
+	jshint \
+	n
 
 # Run the slave
 # Additional background services can be configured by adding
