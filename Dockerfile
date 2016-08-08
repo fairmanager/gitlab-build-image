@@ -2,6 +2,9 @@ FROM debian:stable
 
 MAINTAINER Oliver Salzburg <oliver.salzburg@gmail.com>
 
+# Enable backports (to install Docker)
+RUN echo "deb http://ftp.debian.org/debian jessie-backports main" > /etc/apt/sources.list.d/backports.list
+
 # Install curl
 RUN apt-get update --yes && apt-get install --yes curl
 
@@ -19,6 +22,7 @@ RUN npm install --global npm
 # it, to speed up builds that use it.
 RUN apt-get update --yes && apt-get install --yes \
 	build-essential \
+	docker.io \
 	git \
 	libfontconfig
 
@@ -29,8 +33,8 @@ RUN chown --recursive strider /home/strider
 
 # Install supervisord
 RUN apt-get update --yes && apt-get install --yes supervisor && \
-  mkdir --parents /var/log/supervisor && \
-  mkdir --parents /etc/supervisor/conf.d
+	mkdir --parents /var/log/supervisor && \
+	mkdir --parents /etc/supervisor/conf.d
 
 # write-to-file is expected to exist by strider-docker-gitane-camo
 # which will use the command to drop an SSH key into the container
@@ -59,7 +63,8 @@ RUN npm install --global \
 	grunt-cli \
 	gulp-cli \
 	jshint \
-	n
+	n \
+	node-gyp
 
 # Run the slave
 # Additional background services can be configured by adding
