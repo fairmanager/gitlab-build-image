@@ -12,7 +12,10 @@
 				"shell": "bash",
 				"prepare": {
 					"screen": "Logging into Docker Hub...",
-					"command": "docker login --username $DOCKER_USERNAME --password $DOCKER_PASSWORD"
+					"command": "docker login --username $DOCKER_USERNAME --password $DOCKER_PASSWORD",
+					"options": {
+						"silent": true
+					}
 				}
 			}
 		}
