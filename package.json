@@ -14,6 +14,9 @@
     "type": "git",
     "url": "https://github.com/fairmanager/strider-docker-slave.git"
   },
+  "engines": {
+    "node": ">=4.2"
+  },
   "author": "Oliver Salzburg <oliver.salzburg@gmail.com>",
   "license": "MIT",
   "bugs": {
