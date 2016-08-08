@@ -26,9 +26,6 @@ RUN apt-get update --yes && apt-get install --yes \
 	git \
 	libfontconfig
 
-# Start Docker
-RUN service docker start
-
 # Setup workspace and user. This is expected by Strider
 RUN adduser --home /home/strider --disabled-password --gecos "" strider
 RUN mkdir --parents /home/strider/workspace
@@ -74,4 +71,4 @@ RUN npm install --global \
 # a supervisor config file to the config directory
 # (/etc/supervisor/conf.d/)
 WORKDIR /home/strider/workspace
-CMD supervisord --configuration /etc/supervisor/supervisord.conf && su strider --command ". ~/.profile && strider-docker-slave"
+CMD service docker start || supervisord --configuration /etc/supervisor/supervisord.conf && su strider --command ". ~/.profile && strider-docker-slave"
