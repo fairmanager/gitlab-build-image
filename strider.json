@@ -1,0 +1,9 @@
+{
+	"merge_plugins": true,
+	"plugins": [
+		{
+			"id": "node",
+			"enabled": true
+		}
+	]
+}

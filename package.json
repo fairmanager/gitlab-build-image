@@ -1,14 +1,14 @@
 {
   "name": "@fairmanager/strider-docker-slave",
-  "private": true,
   "version": "1.1.2",
   "description": "Runs inside of a docker container, running commands, communicating via JSON",
   "main": "Dockerfile",
   "scripts": {
-    "build": "docker build --tag fairmanager/strider-docker-slave:latest .",
-    "clean": "docker rmi --force fairmanager/strider-docker-slave || true",
-    "publish": "docker push fairmanager/strider-docker-slave:latest",
-    "test": "sh test/test.sh"
+    "docker:build": "docker build --tag fairmanager/strider-docker-slave:latest .",
+    "docker:clean": "docker rmi --force fairmanager/strider-docker-slave || true",
+    "docker:publish": "docker push fairmanager/strider-docker-slave:latest",
+    "test": "sh test/test.sh",
+    "posttest": "npm run docker:build && npm run docker:publish"
   },
   "repository": {
     "type": "git",
