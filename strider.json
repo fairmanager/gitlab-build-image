@@ -10,12 +10,9 @@
 			"enabled": true,
 			"config": {
 				"shell": "bash",
-				"environment": {
+				"prepare": {
 					"screen": "Logging into Docker Hub...",
-					"command": "docker login --username $DOCKER_USERNAME --password $DOCKER_PASSWORD",
-					"options": {
-						"silent": true
-					}
+					"command": "docker login --username $DOCKER_USERNAME --password $DOCKER_PASSWORD"
 				}
 			}
 		}
