@@ -1,18 +1,21 @@
 {
   "name": "@fairmanager/strider-docker-slave",
-  "private": true,
-  "version": "1.1.2",
+  "version": "1.2.3",
   "description": "Runs inside of a docker container, running commands, communicating via JSON",
   "main": "Dockerfile",
   "scripts": {
-    "build": "docker build --tag fairmanager/strider-docker-slave:latest .",
-    "clean": "docker rmi --force fairmanager/strider-docker-slave || true",
-    "publish": "docker push fairmanager/strider-docker-slave:latest",
+    "docker:build": "docker build --tag fairmanager/strider-docker-slave:latest .",
+    "docker:clean": "docker rmi --force fairmanager/strider-docker-slave || true",
+    "docker:push": "bash -c \"docker push fairmanager/strider-docker-slave:$npm_package_version && docker push fairmanager/strider-docker-slave:latest\"",
+    "docker:tag": "bash -c \"docker tag fairmanager/strider-docker-slave:latest fairmanager/strider-docker-slave:$npm_package_version && docker tag fairmanager/strider-docker-slave:latest fairmanager/strider-docker-slave:latest\"",
     "test": "sh test/test.sh"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/fairmanager/strider-docker-slave.git"
+  },
+  "engines": {
+    "node": ">=4.2"
   },
   "author": "Oliver Salzburg <oliver.salzburg@gmail.com>",
   "license": "MIT",

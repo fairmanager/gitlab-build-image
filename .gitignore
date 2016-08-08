@@ -1,2 +1,9 @@
+# WebStorm workspace
+.idea/deployment.xml
 .idea/workspace.xml
+
+# npm modules
 node_modules/
+
+# npm debugging garbage
+npm-debug.log*
