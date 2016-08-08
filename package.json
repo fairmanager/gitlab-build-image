@@ -7,6 +7,7 @@
     "docker:build": "docker build --tag fairmanager/strider-docker-slave:latest .",
     "docker:clean": "docker rmi --force fairmanager/strider-docker-slave || true",
     "docker:publish": "docker push fairmanager/strider-docker-slave:latest",
+    "docker:tag": "bash -c \"docker tag fairmanager/strider-docker-slave:latest fairmanager/strider-docker-slave:$npm_package_version && docker tag fairmanager/strider-docker-slave:latest fairmanager/strider-docker-slave:latest\"",
     "test": "sh test/test.sh",
     "posttest": "npm run docker:build && npm run docker:publish"
   },
