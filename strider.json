@@ -4,6 +4,17 @@
 		{
 			"id": "node",
 			"enabled": true
+		},
+		{
+			"id": "custom",
+			"enabled": true,
+			"config": {
+				"shell": "bash",
+				"prepare": {
+					"screen": "Logging into Docker Hub...",
+					"command": "docker login --username $DOCKER_USERNAME --password $DOCKER_PASSWORD"
+				}
+			}
 		}
 	]
 }
