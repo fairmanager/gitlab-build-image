@@ -30,6 +30,7 @@ RUN apt-get update --yes && apt-get install --yes \
 RUN adduser --home /home/strider --disabled-password --gecos "" strider
 RUN mkdir --parents /home/strider/workspace
 RUN chown --recursive strider /home/strider
+RUN gpasswd --add strider docker
 
 # Install supervisord
 RUN apt-get update --yes && apt-get install --yes supervisor && \
