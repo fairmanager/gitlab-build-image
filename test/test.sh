@@ -12,8 +12,6 @@ echo "Actual output:"
 docker run \
 	--interactive --attach stdout \
 	--rm \
-	strider-docker-slave:latest < ./test/test.json
+	fairmanager/strider-docker-slave:latest < ./test/test.json
 
-echo ""
-echo "Cleaning up..."
-docker rmi strider-docker-slave:test 2>&1 > /dev/null
+echo "No actual comparison happened here. This test currently always succeeds."
