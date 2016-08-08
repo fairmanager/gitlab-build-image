@@ -12,7 +12,7 @@ echo "Actual output:"
 docker run \
 	--interactive --attach stdout \
 	--rm \
-	strider-docker-slave:test < ./test/test.json
+	strider-docker-slave:latest < ./test/test.json
 
 echo ""
 echo "Cleaning up..."
