@@ -1,0 +1,7 @@
+node_modules/
+test/
+.*
+Dockerfile
+package.json
+README.md
+strider.json
