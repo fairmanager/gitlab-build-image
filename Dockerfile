@@ -71,4 +71,4 @@ RUN npm install --global \
 # a supervisor config file to the config directory
 # (/etc/supervisor/conf.d/)
 WORKDIR /home/strider/workspace
-CMD supervisord --configuration /etc/supervisor/supervisord.conf && su strider --command ". ~/.profile && strider-docker-slave"
+CMD service docker start || supervisord --configuration /etc/supervisor/supervisord.conf && su strider --command ". ~/.profile && strider-docker-slave"
