@@ -2,6 +2,7 @@ node_modules/
 test/
 .*
 Dockerfile
+npm-debug.log*
 package.json
 README.md
 strider.json
