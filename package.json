@@ -1,6 +1,6 @@
 {
   "name": "@fairmanager/strider-docker-slave",
-  "version": "1.2.3",
+  "version": "1.3.0",
   "description": "Runs inside of a docker container, running commands, communicating via JSON",
   "main": "Dockerfile",
   "scripts": {
