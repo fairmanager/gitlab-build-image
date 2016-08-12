@@ -5,8 +5,12 @@ MAINTAINER Oliver Salzburg <oliver.salzburg@gmail.com>
 # Enable backports (to install Docker)
 RUN echo "deb http://ftp.debian.org/debian jessie-backports main" > /etc/apt/sources.list.d/backports.list
 
-# Install curl
-RUN apt-get update --yes && apt-get install --yes curl
+# Install essentials
+RUN apt-get update --yes && \
+	apt-get install --yes \
+		apt-transport-https \
+		ca-certificates \
+		curl
 
 # Install NodeJS
 RUN curl --silent --location https://deb.nodesource.com/setup_4.x | bash -
@@ -19,6 +23,11 @@ RUN npm install --global npm
 # This makes sure we get a fixed GID.
 RUN groupadd --gid 999 docker
 
+# Prepare Docker installation
+RUN apt-get purge "docker.io*" && \
+	apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D && \
+	echo "deb https://apt.dockerproject.org/repo debian-jessie main" > /etc/apt/sources.list.d/docker.list
+
 # Install more stuff we generally need.
 # build-essentials are required to build some npm modules, so is git.
 # Git is required anyway, because, well, we're going to pull our source code from VCS.
@@ -26,7 +35,7 @@ RUN groupadd --gid 999 docker
 # it, to speed up builds that use it.
 RUN apt-get update --yes && apt-get install --yes \
 	build-essential \
-	docker.io \
+	docker-engine \
 	git \
 	libfontconfig \
 	python \
