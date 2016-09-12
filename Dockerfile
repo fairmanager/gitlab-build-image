@@ -50,7 +50,9 @@ RUN apt-get update --yes && apt-get install --yes \
 	git \
 	libfontconfig \
 	python \
-	python-pip
+	python-pip \
+	rabbitmq-server \
+	redis-server
 
 # Install AWS CLI
 RUN pip install awscli
