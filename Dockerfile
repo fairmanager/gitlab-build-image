@@ -61,10 +61,10 @@ RUN apt-get update --yes && apt-get install --yes \
 RUN pip install awscli
 
 # Setup workspace and user. This is expected by Strider
-RUN adduser --home /home/strider --disabled-password --gecos "" strider
-RUN mkdir --parents /home/strider/workspace
-RUN chown --recursive strider /home/strider
-RUN gpasswd --add strider docker
+RUN adduser --home /home/strider --disabled-password --gecos "" strider && \
+	mkdir --parents /home/strider/workspace && \
+	chown --recursive strider /home/strider && \
+	gpasswd --add strider docker
 
 # Install supervisord
 RUN apt-get update --yes && apt-get install --yes supervisor && \
