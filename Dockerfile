@@ -52,9 +52,9 @@ RUN apt-get update --yes && apt-get install --yes \
 	python \
 	python-pip \
 	rabbitmq-server \
-	redis-server &&
+	redis-server && \
 
-	service rabbitmq-server start &&
+	service rabbitmq-server start && \
 	service redis-server start
 
 # Install AWS CLI
