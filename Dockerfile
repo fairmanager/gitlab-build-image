@@ -44,6 +44,7 @@ RUN apt-get purge "docker.io*" && \
 # Git is required anyway, because, well, we're going to pull our source code from VCS.
 # libfontconfig is required for PhantomJS. Not everyone might need this, but we might as well prepare for
 # it, to speed up builds that use it.
+# sudo is installed to allow the strider user to run commands as root.
 RUN apt-get update --yes && apt-get install --yes \
 	build-essential \
 	docker-engine \
@@ -52,19 +53,21 @@ RUN apt-get update --yes && apt-get install --yes \
 	python \
 	python-pip \
 	rabbitmq-server \
-	redis-server && \
-
-	service rabbitmq-server start && \
-	service redis-server start
+	redis-server \
+	sudo
 
 # Install AWS CLI
 RUN pip install awscli
 
 # Setup workspace and user. This is expected by Strider
-RUN adduser --home /home/strider --disabled-password --gecos "" strider && \
+RUN adduser --home /home/strider --disabled-password --gecos "" --ingroup sudo strider && \
 	mkdir --parents /home/strider/workspace && \
 	chown --recursive strider /home/strider && \
 	gpasswd --add strider docker
+
+# Install our sudoers file. It allows members of the sudo group to use sudo without entering their password.
+# The latter is important, because we want to allow strider to use sudo and strider has no password set.
+ADD .docker/sudoers /etc/sudoers
 
 # Install supervisord
 RUN apt-get update --yes && apt-get install --yes supervisor && \
@@ -73,12 +76,12 @@ RUN apt-get update --yes && apt-get install --yes supervisor && \
 
 # write-to-file is expected to exist by strider-docker-gitane-camo
 # which will use the command to drop an SSH key into the container
-ADD write-to-file /usr/local/bin/
+ADD .docker/write-to-file /usr/local/bin/
 # Make sure SSH uses the dropped keyfile.
-ADD ssh.sh /home/strider/
+ADD .docker/ssh.sh /home/strider/
 
 # Install the daemon that accepts the Strider inputs
-ADD slave/* /home/strider/slave/
+ADD .docker/slave/* /home/strider/slave/
 WORKDIR /home/strider/slave
 RUN npm install --global
 
@@ -86,10 +89,10 @@ RUN npm install --global
 # through the environment plugin, using the NPM_TOKEN variable.
 # Do this *after* any npm commands, because without the NPM_TOKEN set
 # all npm interaction will likely fail!
-ADD npmrc /home/strider/.npmrc
+ADD .docker/npmrc /home/strider/.npmrc
 
 # Drop our .profile
-ADD profile /home/strider/.profile
+ADD .docker/profile /home/strider/.profile
 
 # Install other npm modules we usually need globally.
 RUN npm install --global \

@@ -1,6 +1,11 @@
 node_modules/
 test/
-.*
+.dockerignore
+.editorconfig
+.gitignore
+.jscsrc
+.npmignore
+.release.json
 Dockerfile
 npm-debug.log*
 package.json
