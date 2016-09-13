@@ -1,9 +1,10 @@
 {
   "name": "@fairmanager/strider-docker-slave",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "description": "Runs inside of a docker container, running commands, communicating via JSON",
   "main": "Dockerfile",
   "scripts": {
+    "docker:bash": "docker run --interactive --tty --rm fairmanager/strider-docker-slave:latest bash",
     "docker:build": "bash -c \"docker build --build-arg BUILD_DATE=`date -u +\\\"%Y-%m-%dT%H:%M:%SZ\\\"` --build-arg VCS_REF=`git rev-parse --short HEAD` --tag fairmanager/strider-docker-slave:latest .\"",
     "docker:clean": "docker rmi --force fairmanager/strider-docker-slave || true",
     "docker:push": "bash -c \"docker push fairmanager/strider-docker-slave:$npm_package_version && docker push fairmanager/strider-docker-slave:latest\"",

@@ -60,10 +60,11 @@ RUN apt-get update --yes && apt-get install --yes \
 RUN pip install awscli
 
 # Setup workspace and user. This is expected by Strider
-RUN adduser --home /home/strider --disabled-password --gecos "" --ingroup sudo strider && \
+RUN adduser --home /home/strider --disabled-password --gecos "" strider && \
 	mkdir --parents /home/strider/workspace && \
 	chown --recursive strider /home/strider && \
-	gpasswd --add strider docker
+	gpasswd --add strider docker && \
+	gpasswd --add strider sudo
 
 # Install our sudoers file. It allows members of the sudo group to use sudo without entering their password.
 # The latter is important, because we want to allow strider to use sudo and strider has no password set.
