@@ -1,0 +1,2 @@
+{"command":"write-to-file","args":["key","/home/strider/keyfile"]}
+{"command":"chmod","args":["600","/home/strider/keyfile"]}
