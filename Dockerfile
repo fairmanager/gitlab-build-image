@@ -50,6 +50,8 @@ RUN apt-get update --yes && apt-get install --yes \
 	docker-engine \
 	git \
 	libfontconfig \
+	postgresql \
+	postgresql-client \
 	python \
 	python-pip \
 	rabbitmq-server \
