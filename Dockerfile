@@ -14,38 +14,38 @@ LABEL org.label-schema.build-date=$BUILD_DATE \
     org.label-schema.vcs-url="https://github.com/fairmanager/strider-docker-slave"
 
 # Enable backports (to install Docker)
-RUN echo "deb http://ftp.debian.org/debian jessie-backports main" > /etc/apt/sources.list.d/backports.list
+RUN echo "deb http://ftp.debian.org/debian jessie-backports main" > /etc/apt/sources.list.d/backports.list && \
 
-# Install essentials
-RUN apt-get update --yes && \
+	# Install essentials
+	apt-get update --yes && \
 	apt-get install --yes \
 		apt-transport-https \
 		ca-certificates \
-		curl
+		curl && \
 
-# Install NodeJS
-RUN curl --silent --location https://deb.nodesource.com/setup_4.x | bash -
-RUN apt-get update --yes && apt-get install --yes nodejs
+	# Install NodeJS
+	curl --silent --location https://deb.nodesource.com/setup_4.x | bash - && \
+	apt-get update --yes && apt-get install --yes nodejs && \
 
-# Update npm
-RUN npm install --global npm
+	# Update npm
+	npm install --global npm && \
 
-# Make sure the docker group exists prior to installing Docker.
-# This makes sure we get a fixed GID.
-RUN groupadd --gid 999 docker
+	# Make sure the docker group exists prior to installing Docker.
+	# This makes sure we get a fixed GID.
+	groupadd --gid 999 docker && \
 
-# Prepare Docker installation
-RUN apt-get purge "docker.io*" && \
+	# Prepare Docker installation
+	apt-get purge "docker.io*" && \
 	apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D && \
-	echo "deb https://apt.dockerproject.org/repo debian-jessie main" > /etc/apt/sources.list.d/docker.list
+	echo "deb https://apt.dockerproject.org/repo debian-jessie main" > /etc/apt/sources.list.d/docker.list && \
 
-# Install more stuff we generally need.
-# build-essentials are required to build some npm modules, so is git.
-# Git is required anyway, because, well, we're going to pull our source code from VCS.
-# libfontconfig is required for PhantomJS. Not everyone might need this, but we might as well prepare for
-# it, to speed up builds that use it.
-# sudo is installed to allow the strider user to run commands as root.
-RUN apt-get update --yes && apt-get install --yes \
+	# Install more stuff we generally need.
+	# build-essentials are required to build some npm modules, so is git.
+	# Git is required anyway, because, well, we're going to pull our source code from VCS.
+	# libfontconfig is required for PhantomJS. Not everyone might need this, but we might as well prepare for
+	# it, to speed up builds that use it.
+	# sudo is installed to allow the strider user to run commands as root.
+	apt-get update --yes && apt-get install --yes \
 	build-essential \
 	docker-engine \
 	git \
@@ -56,13 +56,13 @@ RUN apt-get update --yes && apt-get install --yes \
 	python-pip \
 	rabbitmq-server \
 	redis-server \
-	sudo
+	sudo && \
 
-# Install AWS CLI
-RUN pip install awscli
+	# Install AWS CLI
+	pip install awscli && \
 
-# Setup workspace and user. This is expected by Strider
-RUN adduser --home /home/strider --disabled-password --gecos "" strider && \
+	# Setup workspace and user. This is expected by Strider
+	adduser --home /home/strider --disabled-password --gecos "" strider && \
 	mkdir --parents /home/strider/workspace && \
 	chown --recursive strider /home/strider && \
 	gpasswd --add strider docker && \
@@ -105,7 +105,10 @@ RUN npm install --global \
 	gulp-cli \
 	jshint \
 	n \
-	node-gyp
+	node-gyp && \
+
+	# Delete apt cache, just to slightly trim down the image.
+	rm -rf /var/lib/apt/lists/*
 
 # Run the slave
 # Additional background services can be configured by adding
