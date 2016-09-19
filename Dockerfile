@@ -52,6 +52,7 @@ RUN echo "deb http://ftp.debian.org/debian jessie-backports main" > /etc/apt/sou
 	libfontconfig \
 	postgresql \
 	postgresql-client \
+	postgresql-contrib \
 	python \
 	python-pip \
 	rabbitmq-server \
