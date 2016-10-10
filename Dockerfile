@@ -18,7 +18,7 @@ RUN echo "deb http://ftp.debian.org/debian jessie-backports main" > /etc/apt/sou
 
 # Install essentials
 	apt-get update --yes && \
-	apt-get install --yes \
+	DEBIAN_FRONTEND=noninteractive apt-get install --yes \
 		apt-transport-https \
 		ca-certificates \
 		curl && \
@@ -41,7 +41,7 @@ RUN echo "deb http://ftp.debian.org/debian jessie-backports main" > /etc/apt/sou
 
 # Prepate postgres installation
 	curl --silent https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - && \
-	echo "deb http://apt.postgresql.org/pub/repos/apt/ jessie-pgdg main" > /etc/apt/sources.list.d/pgdg.lis && \
+	echo "deb http://apt.postgresql.org/pub/repos/apt/ jessie-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
 
 # Install more stuff we generally need.
 # build-essentials are required to build some npm modules, so is git.
@@ -49,7 +49,8 @@ RUN echo "deb http://ftp.debian.org/debian jessie-backports main" > /etc/apt/sou
 # libfontconfig is required for PhantomJS. Not everyone might need this, but we might as well prepare for
 # it, to speed up builds that use it.
 # sudo is installed to allow the strider user to run commands as root.
-	apt-get update --yes && apt-get install --yes \
+	apt-get update --yes && \
+	DEBIAN_FRONTEND=noninteractive apt-get install --yes \
 	build-essential \
 	docker-engine \
 	git \
@@ -78,7 +79,8 @@ RUN echo "deb http://ftp.debian.org/debian jessie-backports main" > /etc/apt/sou
 ADD .docker/sudoers /etc/sudoers
 
 # Install supervisord
-RUN apt-get update --yes && apt-get install --yes supervisor && \
+RUN apt-get update --yes && \
+	DEBIAN_FRONTEND=noninteractive apt-get install --yes supervisor && \
 	mkdir --parents /var/log/supervisor && \
 	mkdir --parents /etc/supervisor/conf.d
 
