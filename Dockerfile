@@ -24,7 +24,7 @@ RUN echo "deb http://ftp.debian.org/debian jessie-backports main" > /etc/apt/sou
 		curl && \
 
 # Install NodeJS
-	curl --silent --location https://deb.nodesource.com/setup_4.x | bash - && \
+	curl --silent --location https://deb.nodesource.com/setup_6.x | bash - && \
 	apt-get update --yes && apt-get install --yes nodejs && \
 
 # Update npm
