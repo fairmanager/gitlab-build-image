@@ -25,6 +25,6 @@
   },
   "homepage": "https://github.com/fairmanager/strider-docker-slave",
   "devDependencies": {
-    "jscs": "^3.0.7"
+    "eslint": "3.18.0"
   }
 }
