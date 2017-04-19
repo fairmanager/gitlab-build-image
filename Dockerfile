@@ -7,7 +7,7 @@ ARG VCS_REF
 LABEL org.label-schema.build-date=$BUILD_DATE \
     org.label-schema.docker.dockerfile="/Dockerfile" \
     org.label-schema.license="MIT" \
-    org.label-schema.name="Docker image for CI in Strider" \
+    org.label-schema.name="FairManager Test Runner for GitLab CI" \
     org.label-schema.url="https://github.com/fairmanager/gitlab-build-image" \
     org.label-schema.vcs-ref=$VCS_REF \
     org.label-schema.vcs-type="Git" \

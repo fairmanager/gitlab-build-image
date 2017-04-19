@@ -1,7 +1,7 @@
 {
   "name": "@fairmanager/gitlab-build-image",
   "version": "3.0.0",
-  "description": "Test runner for GitLab",
+  "description": "FairManager test runner for GitLab CI",
   "main": "Dockerfile",
   "scripts": {
     "docker:bash": "docker run --interactive --tty --rm fairmanager/gitlab-build-image:latest bash",

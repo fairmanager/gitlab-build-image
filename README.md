@@ -1,4 +1,4 @@
-# FairManager GitLab Build Runner
+# FairManager Test Runner for GitLab CI
 [![](https://images.microbadger.com/badges/version/fairmanager/gitlab-build-image.svg)](http://microbadger.com/images/fairmanager/gitlab-build-image "Get your own version badge on microbadger.com")
 
 A Debian-based CI runner which comes equipped with:
