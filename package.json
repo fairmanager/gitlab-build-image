@@ -1,6 +1,6 @@
 {
   "name": "@fairmanager/gitlab-build-image",
-  "version": "2.0.1",
+  "version": "3.0.0",
   "description": "Test runner for GitLab",
   "main": "Dockerfile",
   "scripts": {
