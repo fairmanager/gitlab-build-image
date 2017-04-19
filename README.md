@@ -1,8 +1,12 @@
-# Strider Docker Slave
-[![](https://images.microbadger.com/badges/version/fairmanager/strider-docker-slave.svg)](http://microbadger.com/images/fairmanager/strider-docker-slave "Get your own version badge on microbadger.com")
+# FairManager GitLab Build Runner
+[![](https://images.microbadger.com/badges/version/fairmanager/gitlab-build-image.svg)](http://microbadger.com/images/fairmanager/gitlab-build-image "Get your own version badge on microbadger.com")
 
-The concept of this image is for it to run a single process that accepts input on stdin.
-The input will be JSON formatted commands for it to run.
-
-The hosting application (Stider) can pipe these JSON inputs into the running container.
-Results of the executed commands are emitted as JSON again and are read back by Strider.
+A Debian-based CI runner which comes equipped with:
+- AWS CLI
+- Docker in Docker
+- NodeJS LTS 6.10.2
+- Postgres 9.6.2
+- Python 3.4.2
+- RabbitMQ 3.3.5
+- Redis 2.8.17
+- yarn 0.23.2

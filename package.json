@@ -1,30 +1,29 @@
 {
-  "name": "@fairmanager/strider-docker-slave",
-  "version": "2.0.1",
-  "description": "Runs inside of a docker container, running commands, communicating via JSON",
+  "name": "@fairmanager/gitlab-build-image",
+  "version": "3.0.0",
+  "description": "Test runner for GitLab",
   "main": "Dockerfile",
   "scripts": {
-    "docker:bash": "docker run --interactive --tty --rm fairmanager/strider-docker-slave:latest bash",
-    "docker:build": "bash -c \"docker build --build-arg BUILD_DATE=`date -u +\\\"%Y-%m-%dT%H:%M:%SZ\\\"` --build-arg VCS_REF=`git rev-parse --short HEAD` --tag fairmanager/strider-docker-slave:latest .\"",
-    "docker:clean": "docker rmi --force fairmanager/strider-docker-slave || true",
-    "docker:push": "bash -c \"docker push fairmanager/strider-docker-slave:$npm_package_version && docker push fairmanager/strider-docker-slave:latest\"",
-    "docker:tag": "bash -c \"docker tag fairmanager/strider-docker-slave:latest fairmanager/strider-docker-slave:$npm_package_version && docker tag fairmanager/strider-docker-slave:latest fairmanager/strider-docker-slave:latest\"",
-    "test": "sh test/test.sh"
+    "docker:bash": "docker run --interactive --tty --rm fairmanager/gitlab-build-image:latest bash",
+    "docker:build": "bash -c \"docker build --build-arg BUILD_DATE=`date -u +\\\"%Y-%m-%dT%H:%M:%SZ\\\"` --build-arg VCS_REF=`git rev-parse --short HEAD` --tag fairmanager/gitlab-build-image:latest .\"",
+    "docker:clean": "docker rmi --force fairmanager/gitlab-build-image || true",
+    "docker:push": "bash -c \"docker push fairmanager/gitlab-build-image:$npm_package_version && docker push fairmanager/gitlab-build-image:latest\"",
+    "docker:tag": "bash -c \"docker tag fairmanager/gitlab-build-image:latest fairmanager/gitlab-build-image:$npm_package_version && docker tag fairmanager/gitlab-build-image:latest fairmanager/gitlab-build-image:latest\""
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/fairmanager/strider-docker-slave.git"
+    "url": "https://github.com/fairmanager/gitlab-build-image.git"
   },
   "engines": {
-    "node": ">=4.2"
+    "node": ">= 6"
   },
   "author": "Oliver Salzburg <oliver.salzburg@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/fairmanager/strider-docker-slave/issues"
+    "url": "https://github.com/fairmanager/gitlab-build-image/issues"
   },
-  "homepage": "https://github.com/fairmanager/strider-docker-slave",
+  "homepage": "https://github.com/fairmanager/gitlab-build-image",
   "devDependencies": {
-    "jscs": "^3.0.7"
+    "eslint": "3.18.0"
   }
 }

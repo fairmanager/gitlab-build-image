@@ -1,0 +1,4 @@
+module.exports = {
+	"link" : false,
+	"linkDep" : true
+}
