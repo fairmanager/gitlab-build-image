@@ -49,7 +49,6 @@ RUN echo "deb http://ftp.debian.org/debian jessie-backports main" > /etc/apt/sou
 # Git is required anyway, because, well, we're going to pull our source code from VCS.
 # libfontconfig is required for PhantomJS. Not everyone might need this, but we might as well prepare for
 # it, to speed up builds that use it.
-# sudo is installed to allow the strider user to run commands as root.
 	apt-get update --yes && \
 	DEBIAN_FRONTEND=noninteractive apt-get install --yes \
 	build-essential \
