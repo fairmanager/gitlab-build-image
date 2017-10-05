@@ -24,7 +24,7 @@ RUN echo "deb http://ftp.debian.org/debian jessie-backports main" > /etc/apt/sou
 		curl && \
 
 # Install NodeJS
-	curl --silent --location https://deb.nodesource.com/setup_6.x | bash - && \
+	curl --silent --location https://deb.nodesource.com/setup_8.x | bash - && \
 	apt-get update --yes && apt-get install --yes nodejs && \
 
 # Make sure the docker group exists prior to installing Docker.
@@ -36,11 +36,11 @@ RUN echo "deb http://ftp.debian.org/debian jessie-backports main" > /etc/apt/sou
 	apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D && \
 	echo "deb https://apt.dockerproject.org/repo debian-jessie main" > /etc/apt/sources.list.d/docker.list && \
 
-# Prepate postgres installation
-	curl --silent https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - && \
-	echo "deb http://apt.postgresql.org/pub/repos/apt/ jessie-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
+# We don't install from this repo right now. Debian stable has 9.6, which is fine for now.
+#	curl --silent https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - && \
+#	echo "deb http://apt.postgresql.org/pub/repos/apt/ jessie-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
 
-# Prepate yarn installation
+# Prepare yarn installation
 	curl --silent https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
 	echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list && \
 

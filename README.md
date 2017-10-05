@@ -4,8 +4,8 @@
 A Debian-based CI runner which comes equipped with:
 - AWS CLI
 - Docker in Docker
-- NodeJS LTS 6.10.2
-- Postgres 9.6.2
+- NodeJS LTS 8.6.0
+- Postgres 9.6.3
 - Python 3.4.2
 - RabbitMQ 3.3.5
 - Redis 2.8.17
