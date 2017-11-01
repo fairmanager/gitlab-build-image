@@ -8,7 +8,9 @@
     "docker:build": "bash -c \"docker build --build-arg BUILD_DATE=`date -u +\\\"%Y-%m-%dT%H:%M:%SZ\\\"` --build-arg VCS_REF=`git rev-parse --short HEAD` --tag fairmanager/gitlab-build-image:latest .\"",
     "docker:clean": "docker rmi --force fairmanager/gitlab-build-image || true",
     "docker:push": "bash -c \"docker push fairmanager/gitlab-build-image:$npm_package_version && docker push fairmanager/gitlab-build-image:latest\"",
-    "docker:tag": "bash -c \"docker tag fairmanager/gitlab-build-image:latest fairmanager/gitlab-build-image:$npm_package_version && docker tag fairmanager/gitlab-build-image:latest fairmanager/gitlab-build-image:latest\""
+    "docker:tag": "bash -c \"docker tag fairmanager/gitlab-build-image:latest fairmanager/gitlab-build-image:$npm_package_version && docker tag fairmanager/gitlab-build-image:latest fairmanager/gitlab-build-image:latest\"",
+    "lint": "exit 0",
+    "test": "npm run lint"
   },
   "repository": {
     "type": "git",
