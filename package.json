@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/fairmanager/gitlab-build-image",
   "devDependencies": {
-    "eslint": "3.18.0"
+    "eslint": "3.18.0",
+    "eslint-plugin-promise": "3.6.0"
   }
 }
