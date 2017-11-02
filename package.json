@@ -1,7 +1,7 @@
 {
   "name": "@fairmanager/gitlab-build-image",
-  "version": "4.0.0",
-  "description": "Test runner for GitLab",
+  "version": "5.0.0",
+  "description": "FairManager Test Runner for GitLab CI",
   "main": "Dockerfile",
   "scripts": {
     "docker:bash": "docker run --interactive --tty --rm fairmanager/gitlab-build-image:latest bash",
@@ -22,8 +22,5 @@
   "bugs": {
     "url": "https://github.com/fairmanager/gitlab-build-image/issues"
   },
-  "homepage": "https://github.com/fairmanager/gitlab-build-image",
-  "devDependencies": {
-    "eslint": "3.18.0"
-  }
+  "homepage": "https://github.com/fairmanager/gitlab-build-image"
 }

@@ -1,0 +1,69 @@
+{
+	"patch": {
+		"tasks": [
+			{
+				"name": "Bump version",
+				"command": "bump",
+				"args": [
+					"--patch",
+					"--no-commit"
+				],
+				"comment": "[TASK] Bump version"
+			}
+		]
+	},
+	"minor": {
+		"tasks": [
+			{
+				"name": "Bump version",
+				"command": "bump",
+				"args": [
+					"--minor",
+					"--no-commit"
+				],
+				"comment": "[TASK] Bump version"
+			}
+		]
+	},
+	"major": {
+		"tasks": [
+			{
+				"name": "Bump version",
+				"command": "bump",
+				"args": [
+					"--major",
+					"--no-commit"
+				],
+				"comment": "[TASK] Bump version"
+			}
+		]
+	},
+	"after": {
+		"tasks": [
+			{
+				"name": "Build image",
+				"command": "npm",
+				"args": [
+					"run",
+					"docker:build"
+				]
+			},
+			{
+				"name": "Tag image",
+				"command": "npm",
+				"args": [
+					"run",
+					"docker:tag"
+				]
+			},
+			{
+				"name": "Push image",
+				"command": "npm",
+				"args": [
+					"run",
+					"docker:push"
+				]
+			}
+		]
+	}
+}

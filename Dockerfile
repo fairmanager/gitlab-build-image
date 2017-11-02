@@ -7,7 +7,7 @@ ARG VCS_REF
 LABEL org.label-schema.build-date=$BUILD_DATE \
     org.label-schema.docker.dockerfile="/Dockerfile" \
     org.label-schema.license="MIT" \
-    org.label-schema.name="Docker image for CI in Strider" \
+    org.label-schema.name="FairManager Test Runner for GitLab CI" \
     org.label-schema.url="https://github.com/fairmanager/gitlab-build-image" \
     org.label-schema.vcs-ref=$VCS_REF \
     org.label-schema.vcs-type="Git" \
@@ -34,11 +34,11 @@ RUN echo "deb http://ftp.debian.org/debian jessie-backports main" > /etc/apt/sou
 # Prepare Docker installation
 	apt-get purge "docker.io*" && \
 	apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D && \
-	echo "deb https://apt.dockerproject.org/repo debian-jessie main" > /etc/apt/sources.list.d/docker.list && \
+	echo "deb https://apt.dockerproject.org/repo debian-stretch main" > /etc/apt/sources.list.d/docker.list && \
 
-# We don't install from this repo right now. Debian stable has 9.6, which is fine for now.
-#	curl --silent https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - && \
-#	echo "deb http://apt.postgresql.org/pub/repos/apt/ jessie-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
+# Prepare postgres installation
+	curl --silent https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - && \
+	echo "deb http://apt.postgresql.org/pub/repos/apt/ stretch-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
 
 # Prepare yarn installation
 	curl --silent https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
@@ -49,7 +49,6 @@ RUN echo "deb http://ftp.debian.org/debian jessie-backports main" > /etc/apt/sou
 # Git is required anyway, because, well, we're going to pull our source code from VCS.
 # libfontconfig is required for PhantomJS. Not everyone might need this, but we might as well prepare for
 # it, to speed up builds that use it.
-# sudo is installed to allow the strider user to run commands as root.
 	apt-get update --yes && \
 	DEBIAN_FRONTEND=noninteractive apt-get install --yes \
 	build-essential \
@@ -57,9 +56,9 @@ RUN echo "deb http://ftp.debian.org/debian jessie-backports main" > /etc/apt/sou
 	git \
 	libfontconfig \
 	libyaml-dev \
-	postgresql \
-	postgresql-client \
-	postgresql-contrib \
+	postgresql-10 \
+	postgresql-client-10 \
+	postgresql-contrib-10 \
 	python3 \
 	python3-dev \
 	python3-pip \
@@ -72,14 +71,27 @@ RUN echo "deb http://ftp.debian.org/debian jessie-backports main" > /etc/apt/sou
 	pip3 install awscli
 
 # Install other npm modules we usually need globally.
-RUN yarn add global \
+RUN npm install --global --unsafe-perm \
 	bower \
 	eslint \
 	grunt-cli \
 	gulp-cli \
 	jshint \
 	n \
-	node-gyp && \
+	node-gyp \
+	phantomjs-prebuilt && \
 
 	# Delete apt cache, just to slightly trim down the image.
-	rm -rf /var/lib/apt/lists/*
+	rm -rf /var/lib/apt/lists/* && \
+
+	echo && \
+	echo --- Summary --- && \
+	echo aws        : `aws --version` && \
+	echo Docker     : `docker --version` && \
+	echo NodeJS     : `node -v` && \
+	echo npm        : `npm -v` && \
+	echo PostgreSQL : `/usr/lib/postgresql/10/bin/postgres --version` && \
+	echo Python     : `python --version` / `python3 --version` && \
+	echo Redis      : `redis-server --version` && \
+	echo yarn       : `yarn --version`
+
