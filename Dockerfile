@@ -24,7 +24,7 @@ RUN echo "deb http://ftp.debian.org/debian jessie-backports main" > /etc/apt/sou
 		curl && \
 
 # Install NodeJS
-	curl --silent --location https://deb.nodesource.com/setup_6.x | bash - && \
+	curl --silent --location https://deb.nodesource.com/setup_8.x | bash - && \
 	apt-get update --yes && apt-get install --yes nodejs && \
 
 # Make sure the docker group exists prior to installing Docker.
@@ -34,13 +34,13 @@ RUN echo "deb http://ftp.debian.org/debian jessie-backports main" > /etc/apt/sou
 # Prepare Docker installation
 	apt-get purge "docker.io*" && \
 	apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D && \
-	echo "deb https://apt.dockerproject.org/repo debian-jessie main" > /etc/apt/sources.list.d/docker.list && \
+	echo "deb https://apt.dockerproject.org/repo debian-stretch main" > /etc/apt/sources.list.d/docker.list && \
 
-# Prepate postgres installation
+# Prepare postgres installation
 	curl --silent https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - && \
-	echo "deb http://apt.postgresql.org/pub/repos/apt/ jessie-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
+	echo "deb http://apt.postgresql.org/pub/repos/apt/ stretch-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
 
-# Prepate yarn installation
+# Prepare yarn installation
 	curl --silent https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
 	echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list && \
 
@@ -56,9 +56,9 @@ RUN echo "deb http://ftp.debian.org/debian jessie-backports main" > /etc/apt/sou
 	git \
 	libfontconfig \
 	libyaml-dev \
-	postgresql \
-	postgresql-client \
-	postgresql-contrib \
+	postgresql-10 \
+	postgresql-client-10 \
+	postgresql-contrib-10 \
 	python3 \
 	python3-dev \
 	python3-pip \
@@ -71,14 +71,27 @@ RUN echo "deb http://ftp.debian.org/debian jessie-backports main" > /etc/apt/sou
 	pip3 install awscli
 
 # Install other npm modules we usually need globally.
-RUN yarn add global \
+RUN npm install --global --unsafe-perm \
 	bower \
 	eslint \
 	grunt-cli \
 	gulp-cli \
 	jshint \
 	n \
-	node-gyp && \
+	node-gyp \
+	phantomjs-prebuilt && \
 
 	# Delete apt cache, just to slightly trim down the image.
-	rm -rf /var/lib/apt/lists/*
+	rm -rf /var/lib/apt/lists/* && \
+
+	echo && \
+	echo --- Summary --- && \
+	echo aws        : `aws --version` && \
+	echo Docker     : `docker --version` && \
+	echo NodeJS     : `node -v` && \
+	echo npm        : `npm -v` && \
+	echo PostgreSQL : `/usr/lib/postgresql/10/bin/postgres --version` && \
+	echo Python     : `python --version` / `python3 --version` && \
+	echo Redis      : `redis-server --version` && \
+	echo yarn       : `yarn --version`
+

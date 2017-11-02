@@ -37,5 +37,30 @@
 				"comment": "[TASK] Bump version"
 			}
 		]
+	},
+	"after": {
+		"tasks": [
+			{
+				"name": "Build image",
+				"command": "npm",
+				"args": [
+					"run docker:build"
+				]
+			},
+			{
+				"name": "Tag image",
+				"command": "npm",
+				"args": [
+					"run docker:tag"
+				]
+			},
+			{
+				"name": "Push image",
+				"command": "npm",
+				"args": [
+					"run docker:push"
+				]
+			}
+		]
 	}
 }

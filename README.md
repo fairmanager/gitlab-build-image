@@ -1,13 +1,13 @@
 # FairManager Test Runner for GitLab CI
 [![](https://images.microbadger.com/badges/version/fairmanager/gitlab-build-image.svg)](http://microbadger.com/images/fairmanager/gitlab-build-image "Get your own version badge on microbadger.com")
 
-A Debian-based CI runner which comes equipped with:
-- AWS CLI
+A Debian (stable/stretch)-based CI runner which comes equipped with:
+- AWS CLI 1.11.179
 - Docker in Docker
-- NodeJS LTS 6.10.2
-- npm 3.10.10
-- Postgres 9.6.2
-- Python 3.4.2
-- RabbitMQ 3.3.5
-- Redis 2.8.17
-- yarn 0.23.2
+- NodeJS LTS 8.9.0
+- npm 5.5.1
+- PostgreSQL 10.0
+- Python 2.7.13/3.5.3
+- RabbitMQ 3.6.6
+- Redis 3.2.6
+- yarn 1.2.1
