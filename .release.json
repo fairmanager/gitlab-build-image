@@ -44,21 +44,24 @@
 				"name": "Build image",
 				"command": "npm",
 				"args": [
-					"run docker:build"
+					"run",
+					"docker:build"
 				]
 			},
 			{
 				"name": "Tag image",
 				"command": "npm",
 				"args": [
-					"run docker:tag"
+					"run",
+					"docker:tag"
 				]
 			},
 			{
 				"name": "Push image",
 				"command": "npm",
 				"args": [
-					"run docker:push"
+					"run",
+					"docker:push"
 				]
 			}
 		]
