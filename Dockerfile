@@ -71,7 +71,7 @@ RUN echo "deb http://ftp.debian.org/debian jessie-backports main" > /etc/apt/sou
 	pip3 install awscli
 
 # Install other npm modules we usually need globally.
-RUN npm install --global --unsafe-perm \
+RUN npm install --global --no-audit --no-package-lock --unsafe-perm \
 	bower \
 	eslint \
 	grunt-cli \
