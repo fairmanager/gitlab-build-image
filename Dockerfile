@@ -64,9 +64,7 @@ RUN echo "deb http://ftp.debian.org/debian jessie-backports main" > /etc/apt/sou
 	python3-dev \
 	python3-pip \
 	rabbitmq-server \
-	redis-server \
-	sudo \
-	yarn && \
+	sudo && \
 \
 # Install AWS CLI and docker-compose
 	pip3 install awscli docker-compose
@@ -92,7 +90,4 @@ RUN npm install --global --no-audit --no-package-lock --unsafe-perm \
 	echo NodeJS     : `node -v` && \
 	echo npm        : `npm -v` && \
 	echo PostgreSQL : `/usr/lib/postgresql/9.6/bin/postgres --version` && \
-	echo Python     : `python --version` / `python3 --version` && \
-	echo Redis      : `redis-server --version` && \
-	echo yarn       : `yarn --version`
-
+	echo Python     : `python --version` / `python3 --version`
