@@ -19,6 +19,7 @@ RUN echo "deb http://ftp.debian.org/debian jessie-backports main" > /etc/apt/sou
 # Install essentials
 	apt-get update --yes && \
 	DEBIAN_FRONTEND=noninteractive apt-get install --yes \
+		gnupg \
 		apt-transport-https \
 		ca-certificates \
 		curl && \
