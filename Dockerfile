@@ -90,4 +90,4 @@ RUN npm install --global --no-audit --no-package-lock --unsafe-perm \
 	echo NodeJS     : `node -v` && \
 	echo npm        : `npm -v` && \
 	echo PostgreSQL : `/usr/lib/postgresql/9.6/bin/postgres --version` && \
-	echo Python     : `python --version` / `python3 --version`
+	echo Python     : `python -c 'import sys; print(".".join(map(str, sys.version_info[:3])))'` / `python3 -c 'import sys; print(".".join(map(str, sys.version_info[:3])))'`
