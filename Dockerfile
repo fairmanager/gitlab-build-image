@@ -57,9 +57,9 @@ RUN echo "deb http://ftp.debian.org/debian jessie-backports main" > /etc/apt/sou
 	git \
 	libfontconfig \
 	libyaml-dev \
-	postgresql-10 \
-	postgresql-client-10 \
-	postgresql-contrib-10 \
+	postgresql-9.6 \
+	postgresql-client-9.6 \
+	postgresql-contrib-9.6 \
 	python3 \
 	python3-dev \
 	python3-pip \
@@ -91,7 +91,7 @@ RUN npm install --global --no-audit --no-package-lock --unsafe-perm \
 	echo Docker     : `docker --version` && \
 	echo NodeJS     : `node -v` && \
 	echo npm        : `npm -v` && \
-	echo PostgreSQL : `/usr/lib/postgresql/10/bin/postgres --version` && \
+	echo PostgreSQL : `/usr/lib/postgresql/9.6/bin/postgres --version` && \
 	echo Python     : `python --version` / `python3 --version` && \
 	echo Redis      : `redis-server --version` && \
 	echo yarn       : `yarn --version`
