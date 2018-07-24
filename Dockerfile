@@ -68,8 +68,8 @@ RUN echo "deb http://ftp.debian.org/debian jessie-backports main" > /etc/apt/sou
 	sudo \
 	yarn && \
 \
-# Install AWS CLI
-	pip3 install awscli
+# Install AWS CLI and docker-compose
+	pip3 install awscli docker-compose
 \
 # Install other npm modules we usually need globally.
 RUN npm install --global --no-audit --no-package-lock --unsafe-perm \
