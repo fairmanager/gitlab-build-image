@@ -1,4 +1,4 @@
-FROM debian:stable
+FROM debian:oldstable
 
 MAINTAINER Oliver Salzburg <oliver.salzburg@gmail.com>
 
