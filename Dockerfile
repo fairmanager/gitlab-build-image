@@ -116,7 +116,7 @@ RUN echo "deb http://ftp.debian.org/debian $DEBIAN_TAG-backports main" > /etc/ap
 	xdg-utils && \
 \
 # Install AWS CLI
-	pip3 install awscli
+	pip3 install awscli docker-compose
 
 # Install other npm modules we usually need globally.
 RUN npm install --global --unsafe-perm=true \
