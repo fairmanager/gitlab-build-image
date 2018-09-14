@@ -5,7 +5,7 @@
   "main": "Dockerfile",
   "scripts": {
     "docker:bash": "docker run --interactive --tty --rm fairmanager/gitlab-build-image:latest bash",
-    "docker:build": "bash -c \"docker build --build-arg BUILD_DATE=`date -u +\\\"%Y-%m-%dT%H:%M:%SZ\\\"` --build-arg VCS_REF=`git rev-parse --short HEAD` --tag fairmanager/gitlab-build-image:latest .\"",
+    "docker:build": "bash -c \"docker build --build-arg BUILD_DATE=`date -u +\\\"%Y-%m-%dT%H:%M:%SZ\\\"` --build-arg VCS_REF=`git rev-parse --short HEAD` --build-arg DEBIAN_TAG=stretch --tag fairmanager/gitlab-build-image:latest .\"",
     "docker:clean": "docker rmi --force fairmanager/gitlab-build-image || true",
     "docker:push": "bash -c \"docker push fairmanager/gitlab-build-image:$npm_package_version && docker push fairmanager/gitlab-build-image:latest\"",
     "docker:tag": "bash -c \"docker tag fairmanager/gitlab-build-image:latest fairmanager/gitlab-build-image:$npm_package_version && docker tag fairmanager/gitlab-build-image:latest fairmanager/gitlab-build-image:latest\""
@@ -15,7 +15,7 @@
     "url": "https://github.com/fairmanager/gitlab-build-image.git"
   },
   "engines": {
-    "node": ">= 6"
+    "node": ">= 8"
   },
   "author": "Oliver Salzburg <oliver.salzburg@gmail.com>",
   "license": "MIT",
