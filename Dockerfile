@@ -3,8 +3,8 @@ ARG DEBIAN_TAG=stretch
 FROM debian:$DEBIAN_TAG
 
 ARG DEBIAN_TAG=stretch
-ARG NODEJS_VERSION=8.12.0
-ARG POSTGRES_VERSION=9.6
+ARG NODEJS_VERSION=8.*
+ARG POSTGRES_VERSION=10
 
 ARG BUILD_DATE
 ARG VCS_REF
@@ -36,7 +36,7 @@ RUN echo "deb http://ftp.debian.org/debian $DEBIAN_TAG-backports main" > /etc/ap
 # Install NodeJS
 	curl --silent --location https://deb.nodesource.com/setup_8.x | bash - && \
 	apt-get update --yes && \
-	DEBIAN_FRONTEND=noninteractive apt-get install --yes nodejs=$NODEJS_VERSION* && \
+	DEBIAN_FRONTEND=noninteractive apt-get install --yes nodejs && \
 \
 # Make sure the docker group exists prior to installing Docker.
 # This makes sure we get a fixed GID.
@@ -142,7 +142,7 @@ RUN npm install --global --unsafe-perm=true \
 	echo "- NodeJS     :" `node -v` && \
 	echo "- npm        :" `npm -v` && \
 	echo "- PhantomJS  :" `phantomjs -v` && \
-	echo "- PostgreSQL :" `/usr/lib/postgresql/9.6/bin/postgres --version` && \
+	echo "- PostgreSQL :" `/usr/lib/postgresql/10/bin/postgres --version` && \
 	echo "- Python     :" `python --version 2>&1` / `python3 --version` && \
 	echo "- RabbitMQ   :" `dpkg -s rabbitmq-server | grep Version` && \
 	echo "- Redis      :" `redis-server --version` && \
