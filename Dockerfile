@@ -5,6 +5,7 @@ FROM debian:$DEBIAN_TAG
 ARG DEBIAN_TAG=stretch
 ARG NODEJS_VERSION=8.*
 ARG POSTGRES_VERSION=10
+ENV HUGO_VERSION=0.54.0
 
 ARG BUILD_DATE
 ARG VCS_REF
@@ -118,6 +119,10 @@ RUN echo "deb http://ftp.debian.org/debian $DEBIAN_TAG-backports main" > /etc/ap
 # Install AWS CLI
 	pip3 install awscli docker-compose
 
+RUN cd /tmp && wget -q https://github.com/spf13/hugo/releases/download/v${HUGO_VERSION}/hugo_${HUGO_VERSION}_Linux-64bit.tar.gz && \
+	tar xzf hugo_${HUGO_VERSION}_Linux-64bit.tar.gz && \
+	mv hugo /usr/bin/hugo
+
 # Install other npm modules we usually need globally.
 RUN npm install --global --unsafe-perm=true \
 	eslint \
@@ -139,6 +144,7 @@ RUN npm install --global --unsafe-perm=true \
 	echo "- Docker     :" `docker --version` && \
 	echo "- ESLint     :" `eslint -v` && \
 	echo "- git        :" `git --version` && \
+	echo "- hugo       :" `hugo version` && \
 	echo "- NodeJS     :" `node -v` && \
 	echo "- npm        :" `npm -v` && \
 	echo "- PhantomJS  :" `phantomjs -v` && \
@@ -147,3 +153,4 @@ RUN npm install --global --unsafe-perm=true \
 	echo "- RabbitMQ   :" `dpkg -s rabbitmq-server | grep Version` && \
 	echo "- Redis      :" `redis-server --version` && \
 	echo "- yarn       :" `yarn --version`
+
