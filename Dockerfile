@@ -74,8 +74,6 @@ RUN echo "deb http://ftp.debian.org/debian $DEBIAN_TAG-backports main" > /etc/ap
 	python3 \
 	python3-dev \
 	python3-pip \
-	rabbitmq-server \
-	redis-server \
 	sudo \
 	yarn \
 # These dependencies are mostly required for Chrome-related components used during testing.
@@ -150,7 +148,5 @@ RUN npm install --global --unsafe-perm=true \
 	echo "- PhantomJS  :" `phantomjs -v` && \
 	echo "- PostgreSQL :" `/usr/lib/postgresql/10/bin/postgres --version` && \
 	echo "- Python     :" `python --version 2>&1` / `python3 --version` && \
-	echo "- RabbitMQ   :" `dpkg -s rabbitmq-server | grep Version` && \
-	echo "- Redis      :" `redis-server --version` && \
 	echo "- yarn       :" `yarn --version`
 
